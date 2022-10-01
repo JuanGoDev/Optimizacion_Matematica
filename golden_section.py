@@ -1,19 +1,32 @@
-# Function
-
-# def f(x): return 4 - x ** 2 - 0.2 * x ** 3
+# Importaciones
 import math
 
 
-def f(x): return 20 * x ** 6 - 13 * x ** 5 + 2 * \
-    x ** 4 - 8 * x ** 3 + 13 * x ** 2 - 2 * x + 1
+# Funciones
 
+# función a = 20 * x ** 6 - 13 * x ** 5 + 2 * x ** 4 - 8 * x ** 3 + 13 * x ** 2 - 2 * x + 1
+# funcion b = -3 * x * math.sin(0.75*x) + math.exp(-2 * x)
+# funcion c = 0.2 * x * math.ln(x) + (x-2.3) ** 2
+
+def f(x): return (0.2 * x * math.log(x) + (x-2.3) ** 2)
 
 # Estimación inicial
+
+# valores en a:
 # xl = -2
-# xu = 1
-xl = 2
-xu = -2
-#################################
+# xu = 2
+
+# valores en b:
+# xl = 0
+# xu = 2 * math.pi
+
+
+# Valores en c:
+xl = 0.5
+xu = 2.5
+
+# Tolerancia de Error
+rou = 1e-5
 
 # Crear puntos interiores iniciales. x1 y x2 y evaluar la función en cada punto
 K = 0.5*(1+math.sqrt(5))
@@ -28,14 +41,9 @@ Ik1 = I2
 xLk = xl
 xUk = xu
 
-print(K, i, I1, I2, xak, xbk, fak, fbk, Ik1, xLk, xUk)
-print(math.exp(-5))
-print(type(math.exp(-5)))
-print(Ik1 >= math.exp(-5) & xak <= xbk)
-
 # Método de búsqueda de la Golden-Section
 
-while Ik1 >= math.exp(-5) & xak <= xbk:
+while (Ik1 >= rou) & (xak <= xbk):
     Ik2 = Ik1/K
 
     if fak >= fbk:
@@ -53,7 +61,7 @@ while Ik1 >= math.exp(-5) & xak <= xbk:
         xbk1 = xak
         fbk1 = fak
         fak1 = f(xak1)
-        xw = 0.5*(xLk1 + xbk1)
+        xw = (0.5*(xLk1 + xbk1))
 
     xLk = xLk1
     xUk = xUk1
@@ -64,9 +72,7 @@ while Ik1 >= math.exp(-5) & xak <= xbk:
     Ik1 = Ik2
     i = i + 1
 
-print('Minimum point:')
-xs = xw
-print('Minimum value of objective function:')
-fs = f(xw)
-print('Number of iterations performed:')
-i
+#Datos de salida
+print('Minimum point: xs =', xw)
+print('Minimum value of objective function: fs =', f(xw))
+print('Number of iterations performed:', i)
